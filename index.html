@@ -1,0 +1,114 @@
+<!doctype html>
+<!--
+  CINEMATIC STAGE TEMPLATE — structure is fixed, content and art direction are not.
+  Read references/architecture.md before touching the layer order.
+
+  Every … must be replaced. data-art="nocturne-chrome" makes scripts/check_site.py fail
+  until an art direction from references/design-language.md is chosen and applied.
+-->
+<html lang="en" data-art="nocturne-chrome">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mara Voss — Computational Designer</title>
+  <meta name="description" content="Computational designer building interfaces that behave like materials.">
+  <meta property="og:title" content="Mara Voss">
+  <meta property="og:image" content="media/desktop/poster.jpg">
+  <meta name="theme-color" content="#000000">
+  <link rel="preload" href="site.config.json" as="fetch" crossorigin>
+  <!-- SLOT: fonts of the chosen art direction (Google Fonts or self-hosted). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module">
+    import { boot } from "./stage.js";
+    boot().catch((e) => {
+      document.documentElement.dataset.ready = "error";
+      console.error(e);
+    });
+  </script>
+</head>
+<body>
+
+  <!-- LAYER 0 · STAGE ─ the footage IS the page. Fixed, full-bleed, behind everything.
+       Never move it into a section, never give it a width, never add controls. -->
+  <div class="stage" data-stage aria-hidden="true"></div>
+
+  <!-- LAYER 1 · VEIL ─ grade, scrims for legibility, grain. Pure decoration. -->
+  <div class="veil" aria-hidden="true"><div class="veil__scrim"></div><div class="veil__grain"></div></div>
+
+  <!-- LAYER 2 · OVERLAY ─ one beat per shot. All beats are stacked in the same fixed
+       viewport; the runtime writes --enter / --cp / --exit and data-state on each.
+       data-segment binds a beat to a compiled video segment (see media/*/manifest.json).
+       data-zone must name the negative space the keyframe reserved for type. -->
+  <main class="overlay">
+
+    <section class="beat beat--hook" id="index" data-beat data-segment="seg-01" data-zone="left" data-title="Index">
+      <p class="label">[ Computational design ] <span class="label__dim">Berlin · 2026</span></p>
+      <h1 class="display" data-split="chars">Mara<br>Voss</h1>
+      <p class="lede">Interfaces that behave like materials, not like forms.</p>
+    </section>
+
+    <section class="beat beat--manifesto" id="thesis" data-beat data-segment="seg-02" data-zone="right" data-title="Thesis">
+      <p class="label">01 — Conviction</p>
+      <p class="manifesto" data-split="words">Software should have grain, weight and a temperature. I build the physics first and the screens after.</p>
+    </section>
+
+    <section class="beat beat--works" id="work" data-beat data-segment="seg-03" data-zone="bottom" data-title="Work">
+      <p class="label">02 — Selected work <span class="label__dim">(03)</span></p>
+      <ol class="works">
+        <li><a href="https://example.com"><span class="works__n">01</span><span class="works__t">Tidal OS</span><span class="works__m">Lead · 2025</span></a></li>
+        <li><a href="https://example.com"><span class="works__n">02</span><span class="works__t">Field Notes</span><span class="works__m">Design · 2024</span></a></li>
+        <li><a href="https://example.com"><span class="works__n">03</span><span class="works__t">Glasshouse</span><span class="works__m">Research · 2023</span></a></li>
+      </ol>
+    </section>
+
+    <section class="beat beat--figures" id="signal" data-beat data-segment="seg-04" data-zone="left" data-title="Signal">
+      <p class="label">03 — In numbers</p>
+      <dl class="figures">
+        <div><dt>Shipped</dt><dd data-count="12">0</dd></div>
+        <div><dt>Prototypes</dt><dd data-count="148">0</dd></div>
+        <div><dt>Talks</dt><dd data-count="7">0</dd></div>
+      </dl>
+      <p class="lede">Every prototype starts as a sound file.</p>
+    </section>
+
+    <section class="beat beat--finale" id="contact" data-beat data-segment="seg-05" data-zone="bottom" data-title="Contact">
+      <p class="label">04 — Taking two projects for 2027</p>
+      <a class="finale" href="mailto:mara@voss.studio" data-split="chars">mara@voss.studio</a>
+      <ul class="links">
+        <li><a href="https://github.com">GitHub</a></li>
+        <li><a href="https://x.com">X</a></li>
+        <li><a href="https://example.com">CV</a></li>
+        <li><a href="#top">Back to start ↑</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- LAYER 3 · CHROME ─ the viewfinder. Four corners, no bar, no background. -->
+  <header class="chrome" aria-label="Site">
+    <a class="chrome__tl" href="#top">MARA VOSS</a>
+    <nav class="chrome__tr">
+      <a data-nav href="#thesis">About</a>
+      <a data-nav href="#work">Work</a>
+      <a data-nav href="#contact">Contact</a>
+    </nav>
+    <div class="chrome__bl" aria-hidden="true"><span data-beat-index>01</span> / <span data-beat-total>05</span> — <span data-beat-title></span></div>
+    <div class="chrome__br" aria-hidden="true"><span class="progress"><span class="progress__bar"></span></span><span>52.52° N 13.40° E</span></div>
+  </header>
+
+  <!-- LAYER 4 · LOADER ─ assets are heavy on purpose; make the wait part of the show. -->
+  <div class="loader" data-loader aria-hidden="true">
+    <span class="loader__name">MARA VOSS</span>
+    <span class="loader__value"><span data-loader-value>000</span></span>
+    <span class="loader__bar"></span>
+  </div>
+
+  <!-- SCROLL TRACK ─ empty on purpose; its height is the scroll length of the timeline. -->
+  <div class="track" data-track></div>
+
+  <noscript><style>.loader{display:none}.beat{position:relative;opacity:1;visibility:visible}.overlay{position:relative}.stage{background:center/cover url(media/desktop/poster.jpg)}</style></noscript>
+</body>
+</html>

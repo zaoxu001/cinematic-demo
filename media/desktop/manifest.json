@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "fps": 20.0,
+  "frameCount": 400,
+  "width": 1600,
+  "height": 900,
+  "aspect": "16:9",
+  "focus": [
+    0.5,
+    0.5
+  ],
+  "frames": "frames/%04d.webp",
+  "video": null,
+  "poster": "poster.jpg",
+  "segments": [
+    {
+      "id": "seg-01",
+      "start": 0,
+      "end": 79
+    },
+    {
+      "id": "seg-02",
+      "start": 80,
+      "end": 159
+    },
+    {
+      "id": "seg-03",
+      "start": 160,
+      "end": 239
+    },
+    {
+      "id": "seg-04",
+      "start": 240,
+      "end": 319
+    },
+    {
+      "id": "seg-05",
+      "start": 320,
+      "end": 399
+    }
+  ],
+  "seams": [
+    {
+      "into": "seg-02",
+      "diff": 2.2,
+      "cut": false
+    },
+    {
+      "into": "seg-03",
+      "diff": 4.59,
+      "cut": false
+    },
+    {
+      "into": "seg-04",
+      "diff": 3.78,
+      "cut": false
+    },
+    {
+      "into": "seg-05",
+      "diff": 3.67,
+      "cut": false
+    }
+  ],
+  "bytes": 57031640
+}

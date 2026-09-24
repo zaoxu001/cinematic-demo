@@ -1,0 +1,13 @@
+{
+  "mode": "frames",
+  "sources": {
+    "desktop": "media/desktop",
+    "mobile": "media/mobile"
+  },
+  "portraitBelow": 0.9,
+  "scrollLength": 9,
+  "damping": 0.12,
+  "beatEdge": 0.22,
+  "readyAt": 0.3,
+  "pointer": { "parallax": 0.012 }
+}
