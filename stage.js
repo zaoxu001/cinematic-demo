@@ -71,6 +71,10 @@ export async function boot(configUrl = "site.config.json") {
   document.querySelectorAll("[data-split]").forEach(split);
   document.querySelectorAll("[data-beat-total]").forEach((n) => (n.textContent = pad(beats.length)));
 
+  // The beat whose range started last at or before p. Segment ranges leave
+  // sub-frame gaps between beats; this never falls through them.
+  const beatAt = (p) => beats.reduce((hit, b) => (b.from <= p + 1e-9 ? b : hit), beats[0]);
+
   // ---- scroll length -----------------------------------------------------
   const scrollLength = config.scrollLength ?? Math.max(4, beats.length * 1.8);
   let vh = innerHeight;
@@ -142,7 +146,7 @@ export async function boot(configUrl = "site.config.json") {
     let goal = target;
     if (reduced) {
       // Reduced motion: no scrubbing, the stage jumps to each beat's key frame.
-      const b = beats.find((b) => goal >= b.from && goal <= b.to) ?? beats[beats.length - 1];
+      const b = beatAt(goal);
       goal = (b.from + b.to) / 2;
     }
     const k = reduced || shot !== null ? 1 : 1 - Math.pow(1 - damping, dt);
@@ -157,7 +161,7 @@ export async function boot(configUrl = "site.config.json") {
       lastP = current;
       root.style.setProperty("--p", current.toFixed(4));
       for (const b of beats) updateBeat(b, current);
-      const active = beats.find((b) => current >= b.from && current <= b.to) ?? beats[beats.length - 1];
+      const active = beatAt(current);
       if (active.id !== activeId) {
         activeId = active.id;
         root.dataset.activeBeat = active.id;
